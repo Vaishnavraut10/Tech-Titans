@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Appointment Booking</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+</head> 
+<body>
+    <div class="home-container">
+    
+    </div>
+        <div class="navbar">
+            <ul>
+                <li> <i style="color: white; margin: 8px;" class="fa-solid fa-plus"></i><a href="">Book Appointment</a> </li>
+              
+                <li><a href="book appointment.html">My Appointment</a></li>
+                <li><a href="">Health Resource</a></li>
+                <li><a href="">Contact</a></li>
+                <li><a href="login.html">Login</a><i  style="color: white; margin: 8px;" class="fa-solid fa-circle-user"></i></li>
+                <li><a href="">Sign up</a></li>
+            </ul>
+        </div>
+        <h1 id="booking heading">Book an Appointment</h1> 
+        <select id="specialization-filter" onchange="filterDoctors()">
+            <option value="all">All Specializations</option>
+            <option value="General Physician">General Physician</option>
+            <option value="Dermatologist">Dermatologist</option>
+            <option value="Nephrologist">Nephrologist</option>
+            <option value="Dermatologist">Dermatologist</option>
+            <option value="Surgeon">Surgeon</option>
+            <option value="Cardiologist">Cardiologist</option>
+        </select>
+        </div>
+    <div class="container">
+        
+        <div class="doctors-list">
+            <div class="doctor-card">
+                <h2>Dr. Umang Tagde</h2>
+                <p>Specialization: General Physician</p>
+                <input type="datetime-local" id="appointment-time-john" class="appointment-time">
+                <button class="book-btn" onclick="bookAppointment('Dr. Umang Tagde', 'appointment-time-john')">Book Appointment</button>
+            </div>
+            <div class="doctor-card">
+                <h2>Dr. Srushti Thool</h2>
+                <p>Specialization: Dermatologist</p>
+                <input type="datetime-local" id="appointment-time-jane" class="appointment-time">
+                <button class="book-btn" onclick="bookAppointment('Dr. Srushti Thool', 'appointment-time-jane')">Book Appointment</button>
+            </div>
+            <div class="doctor-card">
+                <h2>Dr. Aarush Wankar</h2>
+                <p>Specialization: Cardiologist</p>
+                <input type="datetime-local" id="appointment-time-jane" class="appointment-time">
+                <button class="book-btn" onclick="bookAppointment('Dr. Aarush Wankar', 'appointment-time-jane')">Book Appointment</button>
+            </div>
+            <div class="doctor-card">
+                <h2>Dr. Harshwardhan Jadhav</h2>
+                <p>Specialization: Surgeon</p>
+                <input type="datetime-local" id="appointment-time-jane" class="appointment-time">
+                <button class="book-btn" onclick="bookAppointment('Dr. Harshwardhan Jadhav', 'appointment-time-jane')">Book Appointment</button>
+            </div>
+        </div>
+        <div class="doctors-list">
+            <div class="doctor-card">
+                <h2>Dr. Yash Gupta</h2>
+                <p>Specialization: Oncologist</p>
+                <input type="datetime-local" id="appointment-time-john" class="appointment-time">
+                <button class="book-btn" onclick="bookAppointment('Dr. Yash Gupta', 'appointment-time-john')">Book Appointment</button>
+            </div>
+            <div class="doctor-card">
+                <h2>Dr. Alan k Biju</h2>
+                <p>Specialization: Nephrologist</p>
+                <input type="datetime-local" id="appointment-time-jane" class="appointment-time">
+                <button class="book-btn" onclick="bookAppointment('Dr. Alan k Biju', 'appointment-time-jane')">Book Appointment</button>
+            </div>
+            <div class="doctor-card">
+                <h2>Dr. Dhanshree </h2>
+                <p>Specialization: Orthopedic Surgeon</p>
+                <input type="datetime-local" id="appointment-time-jane" class="appointment-time">
+                <button class="book-btn" onclick="bookAppointment('Dr. Dhanshree Wankar', 'appointment-time-jane')">Book Appointment</button>
+            </div>
+            <div class="doctor-card">
+                <h2>Dr. Aditya Bagal</h2>
+                <p>Specialization: Neurologist</p>
+                <input type="datetime-local" id="appointment-time-jane" class="appointment-time">
+                <button class="book-btn" onclick="bookAppointment('Dr. Aditya Bagal', 'appointment-time-jane')">Book Appointment</button>
+            </div>
+        </div>
+       
+        
+    </div>
+
+        
+    <script >
+        
+function login() {
+            const username = document.getElementById("username").value;
+            const password = document.getElementById("password").value;
+            
+            if (username && password) {
+                localStorage.setItem("loggedIn", "true");
+                document.getElementById("login-container").style.display = "none";
+                document.getElementById("appointment-container").style.display = "block";
+            } else {
+                alert("Please enter both username and password.");
+            }
+        }
+        
+        function logout() {
+            localStorage.removeItem("loggedIn");
+            document.getElementById("login-container").style.display = "block";
+            document.getElementById("appointment-container").style.display = "none";
+        }
+        
+        function checkLoginStatus() {
+            if (localStorage.getItem("loggedIn")) {
+                document.getElementById("login-container").style.display = "none";
+                document.getElementById("appointment-container").style.display = "block";
+            }
+        }
+        
+        function bookAppointment(doctorName, timeInputId) {
+            const timeInput = document.getElementById(timeInputId).value;
+            if (!timeInput) {
+                alert("Please select a date and time for your appointment.");
+                return;
+            }
+            alert(`Your appointment with ${doctorName} on ${timeInput} has been booked successfully!`);
+        }
+        
+
+
+       function bookAppointment(doctorName) {
+        let appointments = JSON.parse(localStorage.getItem("appointments")) || [];
+        appointments.push({ doctor: doctorName, date: new Date().toLocaleString() });
+        localStorage.setItem("appointments", JSON.stringify(appointments));
+        alert(`Your appointment with ${doctorName} has been booked successfully!`);
+    }
+
+    function loadAppointments() {
+        let appointments = JSON.parse(localStorage.getItem("appointments")) || [];
+        let list = document.getElementById("appointments-list");
+        list.innerHTML = "";
+        appointments.forEach((appointment, index) => {
+            let li = document.createElement("li");
+            li.textContent = `${appointment.doctor}`;
+            list.appendChild(li);
+        });
+    }
+    
+    document.addEventListener("DOMContentLoaded", loadAppointments);
+
+    function cancelAppointment(index) {
+        let appointments = JSON.parse(localStorage.getItem("appointments")) || [];
+        appointments.splice(index, 1);
+        localStorage.setItem("appointments", JSON.stringify(appointments));
+        loadAppointments();
+    }
+
+    function loadAppointments() {
+        let appointments = JSON.parse(localStorage.getItem("appointments")) || [];
+        let list = document.getElementById("appointments-list");
+        list.innerHTML = "";
+        appointments.forEach((appointment, index) => {
+            let li = document.createElement("li");
+            li.textContent = `${appointment.doctor}`;
+            let btn = document.createElement("button");
+            btn.textContent = "Cancel";
+            btn.onclick = () => cancelAppointment(index);
+            li.appendChild(btn);
+            list.appendChild(li);
+        });
+    }
+
+    document.addEventListener("DOMContentLoaded", loadAppointments);
+
+    function bookAppointment(doctorName, slotId) {
+    const selectedSlot = document.getElementById(slotId).value;
+   
+    let appointments = JSON.parse(localStorage.getItem("appointments")) || [];
+    appointments.push({ doctor: doctorName, time: selectedSlot });
+    localStorage.setItem("appointments", JSON.stringify(appointments));
+
+    alert(`Your appointment with ${doctorName} at ${selectedSlot} has been booked successfully!`);
+    loadAppointments();
+}
+
+
+
+
+function cancelAppointment(index) {
+    let appointments = JSON.parse(localStorage.getItem("appointments")) || [];
+    appointments.splice(index, 1);
+    localStorage.setItem("appointments", JSON.stringify(appointments));
+    loadAppointments();
+}
+
+document.addEventListener("DOMContentLoaded", loadAppointments);
+
+
+
+    for (const [id, slots] of Object.entries(doctorSchedules)) {
+        const select = document.getElementById(id);
+        const availabilityText = document.getElementById(id.replace("slots", "availability"));
+        
+        select.innerHTML = "";
+        slots.forEach(slot => {
+            const option = document.createElement("option");
+            option.value = slot;
+            option.textContent = slot;
+            select.appendChild(option);
+        });
+
+        availabilityText.textContent = `Available Slots: ${slots.length}`;
+    }
+
+
+function filterDoctors() {
+    const selectedSpecialization = document.getElementById("specialization-filter").value;
+    document.querySelectorAll(".doctor-card").forEach(card => {
+        const specialization = card.querySelector("p").textContent.split(": ")[1];
+        card.style.display = (selectedSpecialization === "all" || specialization === selectedSpecialization) ? "block" : "none";
+    });
+}
+
+
+</script>
+
+    </script>
+</body>
+</html>
+
